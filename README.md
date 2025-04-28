@@ -28,10 +28,118 @@ cd vite-ts-basic-template
 npm install
 ```
 
-3. Start the development server:
+3. Initialize Git repository (if you didn't clone an existing one):
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+```
+
+4. Start the development server:
 ```bash
 npm run dev
 ```
+
+## Step-by-Step Setup Process
+
+This template was created with the following steps:
+
+1. Create a new Vite project with TypeScript template:
+   ```bash
+   npm create vite@latest . -- --template typescript
+   npm install
+   ```
+
+2. Install and configure ESLint:
+   ```bash
+   npm install -D eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
+   ```
+
+3. Install and configure Prettier:
+   ```bash
+   npm install -D prettier eslint-plugin-prettier eslint-config-prettier
+   ```
+
+4. Install Jest for testing:
+   ```bash
+   npm install -D jest ts-jest @types/jest
+   npm install -D jest-environment-jsdom
+   npm install -D ts-node # Required for TypeScript config files
+   ```
+
+5. Install React Testing Library:
+   ```bash
+   npm install -D @testing-library/react @testing-library/jest-dom
+   ```
+
+6. Install CSS modules mock for Jest:
+   ```bash
+   npm install -D identity-obj-proxy
+   ```
+
+7. Initialize Git repository:
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   ```
+
+## Installed Packages
+
+### Main Dependencies
+- `react`: UI library
+- `react-dom`: React DOM renderer
+
+### Development Dependencies
+- `vite`: Build tool and dev server
+- `typescript`: TypeScript language support
+- `@types/react`, `@types/react-dom`: Type definitions
+- `@vitejs/plugin-react-swc`: Fast React compiler for Vite
+
+#### ESLint
+- `eslint`: Code linter
+- `@typescript-eslint/parser`: TypeScript parser for ESLint
+- `@typescript-eslint/eslint-plugin`: TypeScript rules for ESLint
+- `eslint-plugin-react-hooks`: React Hooks rules
+- `eslint-plugin-react-refresh`: React Refresh rules
+- `eslint-plugin-prettier`: Run Prettier as an ESLint rule
+- `eslint-config-prettier`: Turn off ESLint rules that conflict with Prettier
+
+#### Prettier
+- `prettier`: Code formatter
+
+#### Jest
+- `jest`: Testing framework
+- `ts-jest`: TypeScript support for Jest
+- `@types/jest`: TypeScript types for Jest
+- `jest-environment-jsdom`: DOM environment for Jest
+- `ts-node`: TypeScript execution for Jest config
+- `identity-obj-proxy`: Mock CSS modules in tests
+
+#### Testing Libraries
+- `@testing-library/react`: Testing utilities for React
+- `@testing-library/jest-dom`: DOM testing assertions
+
+## Important Notes and Gotchas
+
+⚠️ **Things to be careful about:**
+
+1. **TypeScript Configuration**: The project uses three TypeScript config files:
+   - `tsconfig.json`: The main entry point that references other configs
+   - `tsconfig.app.json`: For application code
+   - `tsconfig.jest.json`: For tests
+   
+   Be careful when modifying them to maintain compatibility.
+
+2. **Jest Configuration**: Jest requires `jest-environment-jsdom` and `ts-node` packages. Without them, tests will fail.
+
+3. **ESLint & Prettier**: The configuration carefully integrates both tools. Changing ESLint rules might conflict with Prettier.
+
+4. **Line Endings**: Git may show warnings about CRLF/LF line endings, especially on Windows. Configure Git appropriately for your environment.
+
+5. **React Version**: This template uses React 19. If you need to support older projects, downgrade React and update dependencies accordingly.
+
+6. **Module Resolution**: The project uses different module resolution strategies for the app (bundler) and tests (node). Keep this in mind when importing modules.
 
 ## Available Scripts
 
