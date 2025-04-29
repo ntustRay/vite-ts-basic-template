@@ -93,8 +93,8 @@ This template was created with the following steps:
 7. Install Tailwind CSS:
 
    ```bash
-   npm install -D tailwindcss postcss autoprefixer
-   npm install -D @tailwindcss/postcss
+   npm install -D tailwindcss @tailwindcss/vite autoprefixer
+   npm install -D @tailwindcss/postcss postcss
    npm install -D tailwindcss-cli
    npx tailwindcss-cli init -p
    ```
@@ -103,10 +103,38 @@ This template was created with the following steps:
 
    ```js
    // tailwind.config.js
+   /** @type {import('tailwindcss').Config} */
    export default {
      content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-     // ...
+     theme: {
+       extend: {},
+     },
+     plugins: [],
    };
+   ```
+
+   ```js
+   // postcss.config.js
+   export default {
+     plugins: {
+       '@tailwindcss/postcss': {},
+       autoprefixer: {},
+     },
+   };
+   ```
+
+   ```js
+   // vite.config.ts
+   import { defineConfig } from 'vite';
+   import tailwindcss from '@tailwindcss/vite';
+   export default defineConfig({
+     plugins: [tailwindcss()],
+   });
+   ```
+
+   ```css
+   // index.css
+   @import "tailwindcss";
    ```
 
 9. Add Tailwind directives to your CSS file:
