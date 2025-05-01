@@ -14,7 +14,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>TypeScript + ESLint + Prettier + Jest with Vite</h1>
+      <h1>TypeScript + ESLint + Prettier + Jest + Tailwind with Vite</h1>
       <div className="card">
         <Counter initialValue={5} />
         <p>
