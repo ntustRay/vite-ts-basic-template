@@ -2,6 +2,7 @@ import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
 import Counter from './components/Counter';
+import UnoExample from './components/UnoExample';
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
       <p className="read-the-docs">
         A complete starter template with TypeScript, ESLint, Prettier, and Jest
       </p>
+
+      {/* UnoCSS Example */}
+      <UnoExample />
     </>
   );
 }
