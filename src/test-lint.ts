@@ -1,6 +1,6 @@
-// This is a cleaned up test file
-const cleanFormattedVariable = 'test';
+// This file has linting issues that should be auto-fixed
+const badlyFormattedVariable = 'test';
 
 export const testFunction = (): string => {
-  return cleanFormattedVariable;
+  return badlyFormattedVariable;
 };
