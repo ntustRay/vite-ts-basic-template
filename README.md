@@ -1,4 +1,4 @@
-# TypeScript + ESLint + Prettier + Jest with Vite
+# TypeScript + ESLint + Prettier + Jest + SCSS with Vite
 
 This is a template project that integrates:
 - Vite as the build tool and development server
@@ -6,6 +6,7 @@ This is a template project that integrates:
 - ESLint for code quality
 - Prettier for consistent code formatting
 - Jest for testing
+- SCSS for enhanced styling
 
 ## Features
 
@@ -13,6 +14,7 @@ This is a template project that integrates:
 - ESLint configured with TypeScript support
 - Prettier integration for consistent code style
 - Jest configured for TypeScript testing with coverage reports
+- SCSS with variables, nesting, and BEM methodology
 - Ready-to-use development environment
 
 ## Getting Started
@@ -77,7 +79,12 @@ This template was created with the following steps:
    npm install -D identity-obj-proxy
    ```
 
-7. Initialize Git repository:
+7. Install SCSS:
+   ```bash
+   npm install -D sass
+   ```
+
+8. Initialize Git repository:
    ```bash
    git init
    git add .
@@ -107,6 +114,9 @@ This template was created with the following steps:
 
 #### Prettier
 - `prettier`: Code formatter
+
+#### SCSS
+- `sass`: SCSS preprocessor
 
 #### Jest
 - `jest`: Testing framework
@@ -162,6 +172,10 @@ vite-ts-basic-template/
 │   ├── __tests__/       # Test files
 │   ├── assets/          # Static assets
 │   ├── components/      # React components
+│   ├── styles/          # SCSS stylesheets
+│   │   ├── _variables.scss  # SCSS variables
+│   │   ├── main.scss    # Main SCSS file
+│   │   └── App.scss     # App component styles
 │   ├── App.tsx          # Main application component
 │   └── main.tsx         # Application entry point
 ├── .prettierrc          # Prettier configuration
@@ -174,6 +188,23 @@ vite-ts-basic-template/
 ├── tsconfig.jest.json   # TypeScript test configuration
 └── vite.config.ts       # Vite configuration
 ```
+
+## SCSS Organization
+
+The project includes a well-organized SCSS structure:
+
+- `src/styles/_variables.scss`: Contains variables for colors, typography, spacing, etc.
+- `src/styles/main.scss`: Main SCSS file with global styles and utility classes
+- `src/styles/App.scss`: Component-specific styles following BEM methodology
+
+### SCSS Features Used
+
+- Variables for consistent theming
+- Nesting for readable style organization
+- BEM (Block Element Modifier) naming convention
+- SCSS functions like `darken()` for color manipulation
+- Media queries for responsive design
+- Utility classes for common styling patterns
 
 ## Extending the Configuration
 
