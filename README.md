@@ -1,11 +1,13 @@
 # TypeScript + ESLint + Prettier + Jest with Vite
 
 This is a template project that integrates:
+
 - Vite as the build tool and development server
 - TypeScript for type-safe code
 - ESLint for code quality
 - Prettier for consistent code formatting
 - Jest for testing
+- Husky + lint-staged for pre-commit linting
 
 ## Features
 
@@ -13,22 +15,26 @@ This is a template project that integrates:
 - ESLint configured with TypeScript support
 - Prettier integration for consistent code style
 - Jest configured for TypeScript testing with coverage reports
+- Pre-commit hooks to automatically check and fix linting issues
 - Ready-to-use development environment
 
 ## Getting Started
 
 1. Clone this repository:
+
 ```bash
 git clone <repository-url>
 cd vite-ts-basic-template
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Initialize Git repository (if you didn't clone an existing one):
+
 ```bash
 git init
 git add .
@@ -36,6 +42,7 @@ git commit -m "Initial commit"
 ```
 
 4. Start the development server:
+
 ```bash
 npm run dev
 ```
@@ -45,22 +52,26 @@ npm run dev
 This template was created with the following steps:
 
 1. Create a new Vite project with TypeScript template:
+
    ```bash
    npm create vite@latest . -- --template typescript
    npm install
    ```
 
 2. Install and configure ESLint:
+
    ```bash
    npm install -D eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
    ```
 
 3. Install and configure Prettier:
+
    ```bash
    npm install -D prettier eslint-plugin-prettier eslint-config-prettier
    ```
 
 4. Install Jest for testing:
+
    ```bash
    npm install -D jest ts-jest @types/jest
    npm install -D jest-environment-jsdom
@@ -68,16 +79,46 @@ This template was created with the following steps:
    ```
 
 5. Install React Testing Library:
+
    ```bash
    npm install -D @testing-library/react @testing-library/jest-dom
    ```
 
 6. Install CSS modules mock for Jest:
+
    ```bash
    npm install -D identity-obj-proxy
    ```
 
-7. Initialize Git repository:
+7. Install and configure Husky and lint-staged for pre-commit hooks:
+
+   ```bash
+   npm install -D husky lint-staged
+   npm pkg set scripts.prepare="husky"
+   npx husky init
+   ```
+
+   Then add the following to package.json:
+
+   ```json
+   "lint-staged": {
+     "*.{js,jsx,ts,tsx}": [
+       "eslint --fix",
+       "prettier --write"
+     ]
+   }
+   ```
+
+   And update .husky/pre-commit:
+
+   ```bash
+   #!/bin/sh
+   . "$(dirname "$0")/_/husky.sh"
+
+   npx lint-staged
+   ```
+
+8. Initialize Git repository:
    ```bash
    git init
    git add .
@@ -87,16 +128,19 @@ This template was created with the following steps:
 ## Installed Packages
 
 ### Main Dependencies
+
 - `react`: UI library
 - `react-dom`: React DOM renderer
 
 ### Development Dependencies
+
 - `vite`: Build tool and dev server
 - `typescript`: TypeScript language support
 - `@types/react`, `@types/react-dom`: Type definitions
 - `@vitejs/plugin-react-swc`: Fast React compiler for Vite
 
 #### ESLint
+
 - `eslint`: Code linter
 - `@typescript-eslint/parser`: TypeScript parser for ESLint
 - `@typescript-eslint/eslint-plugin`: TypeScript rules for ESLint
@@ -106,9 +150,16 @@ This template was created with the following steps:
 - `eslint-config-prettier`: Turn off ESLint rules that conflict with Prettier
 
 #### Prettier
+
 - `prettier`: Code formatter
 
+#### Pre-commit Hooks
+
+- `husky`: Git hooks manager
+- `lint-staged`: Run linters on staged files
+
 #### Jest
+
 - `jest`: Testing framework
 - `ts-jest`: TypeScript support for Jest
 - `@types/jest`: TypeScript types for Jest
@@ -117,6 +168,7 @@ This template was created with the following steps:
 - `identity-obj-proxy`: Mock CSS modules in tests
 
 #### Testing Libraries
+
 - `@testing-library/react`: Testing utilities for React
 - `@testing-library/jest-dom`: DOM testing assertions
 
@@ -125,10 +177,11 @@ This template was created with the following steps:
 ⚠️ **Things to be careful about:**
 
 1. **TypeScript Configuration**: The project uses three TypeScript config files:
+
    - `tsconfig.json`: The main entry point that references other configs
    - `tsconfig.app.json`: For application code
    - `tsconfig.jest.json`: For tests
-   
+
    Be careful when modifying them to maintain compatibility.
 
 2. **Jest Configuration**: Jest requires `jest-environment-jsdom` and `ts-node` packages. Without them, tests will fail.
@@ -140,6 +193,8 @@ This template was created with the following steps:
 5. **React Version**: This template uses React 19. If you need to support older projects, downgrade React and update dependencies accordingly.
 
 6. **Module Resolution**: The project uses different module resolution strategies for the app (bundler) and tests (node). Keep this in mind when importing modules.
+
+7. **Pre-commit Hooks**: Husky may show a deprecation warning about the hook format. This is expected and does not affect functionality.
 
 ## Available Scripts
 
@@ -164,6 +219,8 @@ vite-ts-basic-template/
 │   ├── components/      # React components
 │   ├── App.tsx          # Main application component
 │   └── main.tsx         # Application entry point
+├── .husky/              # Git hooks
+│   └── pre-commit       # Pre-commit hook
 ├── .prettierrc          # Prettier configuration
 ├── eslint.config.js     # ESLint configuration
 ├── index.html           # HTML template
@@ -174,6 +231,35 @@ vite-ts-basic-template/
 ├── tsconfig.jest.json   # TypeScript test configuration
 └── vite.config.ts       # Vite configuration
 ```
+
+## Pre-commit Hooks
+
+This project uses Husky and lint-staged to run linters on staged files before committing. This ensures that all committed code follows the project's linting rules and formatting standards.
+
+### How it works
+
+When you try to commit your changes, the pre-commit hook will:
+
+1. Stash any unstaged changes temporarily
+2. Run ESLint with auto-fix on staged files
+3. Run Prettier to format staged files
+4. If any linting errors cannot be automatically fixed, the commit will be aborted
+5. If everything passes, the commit proceeds normally
+
+### What gets fixed automatically
+
+- Code style issues (spacing, indentation, etc.)
+- Missing semicolons
+- Quotes (single vs double)
+- Simple import sorting
+- Basic formatting according to Prettier rules
+
+### What causes commit rejection
+
+- Unused variables
+- Undefined variables
+- Syntax errors
+- Other ESLint errors that cannot be auto-fixed
 
 ## Extending the Configuration
 
